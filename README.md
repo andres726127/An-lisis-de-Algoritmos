@@ -1,3 +1,5 @@
+## Nombre: Leonardo Mendieta
+
 # Introducción
 
 Este libro es sobre algoritmos, o sea, esas instrucciones que te dicen cómo hacer cosas paso a paso. Al principio aclaramos qué carajo significa eso y mostramos varias formas simples de hacer multiplicaciones para que se entienda bien. Además, te damos la razón por la que estudiar algoritmos no es solo útil, sino que también puede ser interesante (aunque a veces parezca un embole).
