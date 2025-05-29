@@ -161,6 +161,3 @@ Para no marearse con todos los detalles, se escoge una instrucción que se ejecu
 El peor caso de ordenación por inserción pasa cuando la lista está ordenada al revés. Ahí, el bucle que mueve los elementos se ejecuta como n²/2 veces, o sea, O(n²). Pero si la lista ya está casi ordenada, va mucho más rápido.
 
 ---
-
-**En resumen:** Big-O es como un lenguaje para contar cuánto se tarda en resolver un problema sin complicarse con detalles, pero ojo con los casos especiales y con que a veces la realidad puede ser más cabrona. Este README te da una idea fresca y práctica para entenderlo sin líos.
-
