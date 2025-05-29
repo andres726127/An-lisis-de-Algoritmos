@@ -1,4 +1,5 @@
 ## Nombre: Leonardo Mendieta
+### Nota: Los talleres se encuentran en el apartado de Wiki!
 
 # Introducción
 
