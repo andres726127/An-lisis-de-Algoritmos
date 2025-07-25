@@ -164,3 +164,148 @@ Para no marearse con todos los detalles, se escoge una instrucción que se ejecu
 El peor caso de ordenación por inserción pasa cuando la lista está ordenada al revés. Ahí, el bucle que mueve los elementos se ejecuta como n²/2 veces, o sea, O(n²). Pero si la lista ya está casi ordenada, va mucho más rápido.
 
 ---
+
+#  Bimestre 2 – Algoritmos: Divide y Vencerás, Búsqueda, Ordenación y Grafos
+
+## 🔹 Divide y Vencerás
+
+Aprendimos la estrategia de “divide y vencerás”, que consiste en dividir un problema en partes pequeñas, resolverlas por separado y luego combinarlas. Se vio con un ejemplo de multiplicación: 981 × 1234.
+
+En lugar de multiplicar directamente, se separan los números:
+
+- 981 → w = 09, x = 81
+- 1234 → y = 12, z = 34
+
+Se calculan:
+- `p = w * y = 108`
+- `q = x * z = 2754`
+- `r = (w + x) * (y + z) = 90 * 46 = 4140`
+
+Y luego:
+> Resultado = 10⁴ * p + 10² * (r − p − q) + q
+
+Este método reduce el número de multiplicaciones necesarias y se basa en una técnica algorítmica eficiente.
+
+---
+
+## 🔹 Búsqueda Binaria
+
+Es una técnica eficiente para buscar elementos en listas ordenadas. Reduce el espacio de búsqueda a la mitad en cada paso.
+
+- Complejidad: O(log n)
+- Mucho más rápida que una búsqueda lineal si los datos están ordenados.
+
+---
+
+## 🔹 Ordenación – Quicksort
+
+El algoritmo **quicksort** selecciona un pivote y divide el arreglo en elementos menores y mayores. Luego aplica recursivamente la misma idea.
+
+- Eficiente en promedio
+- Amplio uso en programación
+
+---
+
+## 🔹 Algoritmos Voraces (Greedy)
+
+Son algoritmos que toman decisiones paso a paso, eligiendo la opción más conveniente en cada momento.
+
+**Ejemplo práctico:** dar cambio con el menor número de monedas posibles.
+
+**Ventajas:**
+- Sencillos de implementar
+- Eficientes para muchos casos
+
+**Desventajas:**
+- No garantizan la mejor solución en todos los casos
+
+---
+
+## 🔹 Grafos y Árbol de Recubrimiento Mínimo (MST)
+
+Un **grafo** es un conjunto de nodos (vértices) conectados por enlaces (aristas).
+
+El **árbol de recubrimiento mínimo** conecta todos los nodos con el menor costo total, sin ciclos. Se usa en redes eléctricas, transporte, etc.
+
+El **algoritmo de Kruskal** es uno de los más usados para encontrar este árbol, seleccionando siempre la arista más barata sin formar ciclos.
+
+---
+
+## ✅ Conclusión
+
+Estudiamos diferentes estrategias para resolver problemas computacionales: dividir para conquistar, buscar eficientemente, ordenar datos, tomar decisiones óptimas localmente y trabajar con estructuras como grafos para conectar elementos de forma eficiente.
+
+# 📘 Estrategias Bajo Incertidumbre y Algoritmos Probabilísticos
+
+## 🔸 Problema del Tesoro y el Dragón
+
+Un tesoro con `x` lingotes está escondido en A o B. Se desconoce su ubicación exacta. Viajar desde el punto de partida (O) toma 5 días y cada noche un dragón roba `y` lingotes.
+
+Opciones:
+
+1. Esperar 4 días para saber con certeza la ubicación.
+2. Pagarle a un elfo `3y` lingotes para saberla de inmediato.
+3. Elegir al azar (por ejemplo, lanzar una moneda).
+
+**Valor esperado con opción aleatoria:**
+
+- Acertar (50%): pérdida de `5y` → ganancia: `x − 5y`
+- Fallar (50%): pérdida de `10y` → ganancia: `x − 10y`
+
+> Esperanza matemática:  
+> `E[ganancia] = 0.5(x − 5y) + 0.5(x − 10y) = x − 7.5y`
+
+Este enfoque usa **estrategias probabilísticas** para tomar decisiones basadas en el riesgo y beneficio esperado.
+
+---
+
+## 🔸 Algoritmos Probabilísticos
+
+- No garantizan siempre el mismo resultado.
+- Usan variables aleatorias para tomar decisiones.
+- Son útiles cuando obtener información exacta es costoso o incierto.
+
+**Ventajas:**
+- Flexibles y rápidos
+- Buen rendimiento práctico
+
+**Desventajas:**
+- Pueden fallar o no dar siempre la mejor solución
+- Requieren análisis más avanzado (probabilidades, esperanza matemática)
+
+---
+
+## 🔸 Números Pseudoaleatorios
+
+Los **números pseudoaleatorios** son generados por algoritmos (como el generador lineal congruencial) y se comportan como si fueran aleatorios.
+
+> Fórmula: `Xₙ₊₁ = (a * Xₙ + c) mod m`
+
+- Se usan en simulaciones, pruebas, juegos, etc.
+
+---
+
+## 🔸 Tiempo de Ejecución
+
+- **Tiempo promedio:** en algoritmos deterministas (según todas las entradas).
+- **Tiempo esperado:** en algoritmos probabilísticos (según decisiones aleatorias).
+- **Tiempo esperado en el peor caso:** combinación de los dos anteriores para situaciones más conservadoras.
+
+---
+
+## 🔸 Algoritmos Deterministas vs Probabilísticos
+
+| Determinista        | Probabilístico              |
+|---------------------|-----------------------------|
+| Siempre da el mismo resultado | Puede dar diferentes resultados |
+| Análisis más estructurado     | Requiere análisis probabilístico |
+| Útil para problemas conocidos | Útil en situaciones inciertas   |
+
+---
+
+## ✅ Conclusión
+
+Los algoritmos probabilísticos son útiles cuando no se puede conocer todo el contexto del problema. Permiten tomar decisiones rápidas con un buen margen de éxito. Son una alternativa válida y poderosa frente a los algoritmos deterministas, especialmente en contextos donde el riesgo o la incertidumbre están presentes.
+
+
+
