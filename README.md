@@ -188,6 +188,38 @@ Este método reduce el número de multiplicaciones necesarias y se basa en una t
 
 ---
 
+```Java
+package pseudoaleatorios;
+import java.util.Scanner;
+
+public class Pseudoaleatorios {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Cantidad de números a generar: ");
+        int cantidad = scanner.nextInt();
+
+        System.out.print("Ingrese la semilla (X0): ");
+        long x = scanner.nextLong();
+
+        // Parámetros clásicos para el algoritmo
+        final long a = 1664525;     // multiplicador
+        final long c = 1013904223;  // incremento
+        final long m = (long) Math.pow(2, 32);  // módulo
+
+        System.out.println("Números pseudoaleatorios generados:");
+        for (int i = 0; i < cantidad; i++) {
+            x = (a * x + c) % m;
+            System.out.println(x);
+        }
+
+        scanner.close();
+    }
+}
+
+```
+![Pseudonumeros](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/Pseudonumeros.png)
+
 ## 🔹 Búsqueda Binaria
 
 Es una técnica eficiente para buscar elementos en listas ordenadas. Reduce el espacio de búsqueda a la mitad en cada paso.
@@ -196,6 +228,87 @@ Es una técnica eficiente para buscar elementos en listas ordenadas. Reduce el e
 - Mucho más rápida que una búsqueda lineal si los datos están ordenados.
 
 ---
+```Java
+package busquedabinaria;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class BusquedaBinaria {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        System.out.print("¿Cuántos números aleatorios deseas generar? ");
+        int n = scanner.nextInt();
+
+        int[] numeros = new int[n];
+        for (int i = 0; i < n; i++) {
+            numeros[i] = random.nextInt(100); // Números entre 0 y 99
+        }
+
+        // Ordenamos el arreglo antes de buscar
+        Arrays.sort(numeros);
+        System.out.println("Arreglo ordenado:");
+        System.out.println(Arrays.toString(numeros));
+
+        System.out.print("¿Qué número deseas buscar? ");
+        int objetivo = scanner.nextInt();
+
+        // Elegir método de búsqueda binaria
+        int resultado = busquedaBinariaIterativa(numeros, objetivo);
+        // int resultado = busquedaBinariaRecursiva(numeros, 0, numeros.length - 1, objetivo);
+
+        if (resultado != -1) {
+            System.out.println("Número encontrado en la posición: " + resultado);
+        } else {
+            System.out.println("Número no encontrado.");
+        }
+
+        scanner.close();
+    }
+
+    // Búsqueda binaria iterativa
+    public static int busquedaBinariaIterativa(int[] arr, int objetivo) {
+        int izquierda = 0;
+        int derecha = arr.length - 1;
+
+        while (izquierda <= derecha) {
+            int medio = (izquierda + derecha) / 2;
+
+            if (arr[medio] == objetivo) {
+                return medio;
+            } else if (arr[medio] < objetivo) {
+                izquierda = medio + 1;
+            } else {
+                derecha = medio - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    // Búsqueda binaria recursiva (opcional)
+    public static int busquedaBinariaRecursiva(int[] arr, int izquierda, int derecha, int objetivo) {
+        if (izquierda > derecha) {
+            return -1;
+        }
+
+        int medio = (izquierda + derecha) / 2;
+
+        if (arr[medio] == objetivo) {
+            return medio;
+        } else if (arr[medio] < objetivo) {
+            return busquedaBinariaRecursiva(arr, medio + 1, derecha, objetivo);
+        } else {
+            return busquedaBinariaRecursiva(arr, izquierda, medio - 1, objetivo);
+        }
+    }
+}
+
+```
+![Busqueda Binaria](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/BusquedaBinaria.png)
 
 ## 🔹 Ordenación – Quicksort
 
@@ -205,7 +318,73 @@ El algoritmo **quicksort** selecciona un pivote y divide el arreglo en elementos
 - Amplio uso en programación
 
 ---
+```Java
+package busquedabinaria;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
+public class QuickSortEjemplo {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        System.out.print("¿Cuántos números aleatorios deseas generar? ");
+        int n = scanner.nextInt();
+
+        int[] arreglo = new int[n];
+        for (int i = 0; i < n; i++) {
+            arreglo[i] = random.nextInt(100); // Números entre 0 y 99
+        }
+
+        System.out.println("Arreglo original:");
+        System.out.println(Arrays.toString(arreglo));
+
+        quicksort(arreglo, 0, arreglo.length - 1);
+
+        System.out.println("Arreglo ordenado con Quicksort:");
+        System.out.println(Arrays.toString(arreglo));
+
+        scanner.close();
+    }
+
+    // Implementación de Quicksort
+    public static void quicksort(int[] arr, int izquierda, int derecha) {
+        if (izquierda < derecha) {
+            int indicePivote = particion(arr, izquierda, derecha);
+
+            quicksort(arr, izquierda, indicePivote - 1);  // Subarreglo izquierdo
+            quicksort(arr, indicePivote + 1, derecha);    // Subarreglo derecho
+        }
+    }
+
+    // Función de partición (usa el último elemento como pivote)
+    public static int particion(int[] arr, int izquierda, int derecha) {
+        int pivote = arr[derecha];
+        int i = izquierda - 1;
+
+        for (int j = izquierda; j < derecha; j++) {
+            if (arr[j] <= pivote) {
+                i++;
+                intercambiar(arr, i, j);
+            }
+        }
+
+        intercambiar(arr, i + 1, derecha);
+        return i + 1;
+    }
+
+    // Método auxiliar para intercambiar elementos
+    public static void intercambiar(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+```
+![QuickSort](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/QuickSort.png)
 ## 🔹 Algoritmos Voraces (Greedy)
 
 Son algoritmos que toman decisiones paso a paso, eligiendo la opción más conveniente en cada momento.
@@ -220,7 +399,72 @@ Son algoritmos que toman decisiones paso a paso, eligiendo la opción más conve
 - No garantizan la mejor solución en todos los casos
 
 ---
+```Java
+package mochilavoraz;
+import java.util.*;
 
+class Objeto {
+    int valor, peso;
+    double ratio;
+
+    public Objeto(int valor, int peso) {
+        this.valor = valor;
+        this.peso = peso;
+        this.ratio = (double) valor / peso;
+    }
+}
+
+public class MochilaVoraz {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Número de objetos: ");
+        int n = scanner.nextInt();
+
+        Objeto[] objetos = new Objeto[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Valor del objeto " + (i + 1) + ": ");
+            int valor = scanner.nextInt();
+            System.out.print("Peso del objeto " + (i + 1) + ": ");
+            int peso = scanner.nextInt();
+            objetos[i] = new Objeto(valor, peso);
+        }
+
+        System.out.print("Capacidad de la mochila: ");
+        int capacidad = scanner.nextInt();
+
+        double maxValor = mochilaFraccionaria(objetos, capacidad);
+
+        System.out.printf("Valor máximo en la mochila: %.2f\n", maxValor);
+
+        scanner.close();
+    }
+
+    public static double mochilaFraccionaria(Objeto[] objetos, int capacidad) {
+        Arrays.sort(objetos, (a, b) -> Double.compare(b.ratio, a.ratio)); // Ordenar por valor/peso descendente
+
+        double valorTotal = 0.0;
+
+        for (Objeto obj : objetos) {
+            if (capacidad == 0) break;
+
+            if (obj.peso <= capacidad) {
+                valorTotal += obj.valor;
+                capacidad -= obj.peso;
+            } else {
+                valorTotal += obj.ratio * capacidad;
+                capacidad = 0;
+            }
+        }
+
+        return valorTotal;
+    }
+}
+
+```
+![Mochila Voraz](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/MochilaVoraz.png)
 ## 🔹 Grafos y Árbol de Recubrimiento Mínimo (MST)
 
 Un **grafo** es un conjunto de nodos (vértices) conectados por enlaces (aristas).
@@ -230,11 +474,14 @@ El **árbol de recubrimiento mínimo** conecta todos los nodos con el menor cost
 El **algoritmo de Kruskal** es uno de los más usados para encontrar este árbol, seleccionando siempre la arista más barata sin formar ciclos.
 
 ---
+### Grafos:
+![Grafos](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/grafos.PNG)
 
-## ✅ Conclusión
+### Arbol de recubrimiento minimo
+![Arbol de recubrimiento minimo](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/Arbol%2Bde%2Bcubrimiento%2Bm%C3%ADnimo.jpg)
 
-Estudiamos diferentes estrategias para resolver problemas computacionales: dividir para conquistar, buscar eficientemente, ordenar datos, tomar decisiones óptimas localmente y trabajar con estructuras como grafos para conectar elementos de forma eficiente.
-
+### Algoritmo de Kurskal
+![Algoritmo de Kurskal](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/AlgoritmoDeKurskal.jpg)
 # 📘 Estrategias Bajo Incertidumbre y Algoritmos Probabilísticos
 
 ## 🔸 Problema del Tesoro y el Dragón
@@ -274,6 +521,7 @@ Este enfoque usa **estrategias probabilísticas** para tomar decisiones basadas 
 - Requieren análisis más avanzado (probabilidades, esperanza matemática)
 
 ---
+![Algoritmos y probabilidades](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/AlgoritmosYprobabilidades.png)
 
 ## 🔸 Números Pseudoaleatorios
 
@@ -284,6 +532,38 @@ Los **números pseudoaleatorios** son generados por algoritmos (como el generado
 - Se usan en simulaciones, pruebas, juegos, etc.
 
 ---
+### Ejemplo:
+```Java
+package pseudoaleatorios;
+import java.util.Scanner;
+
+public class Pseudoaleatorios {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Cantidad de números a generar: ");
+        int cantidad = scanner.nextInt();
+
+        System.out.print("Ingrese la semilla (X0): ");
+        long x = scanner.nextLong();
+
+        // Parámetros clásicos para el algoritmo
+        final long a = 1664525;     // multiplicador
+        final long c = 1013904223;  // incremento
+        final long m = (long) Math.pow(2, 32);  // módulo
+
+        System.out.println("Números pseudoaleatorios generados:");
+        for (int i = 0; i < cantidad; i++) {
+            x = (a * x + c) % m;
+            System.out.println(x);
+        }
+
+        scanner.close();
+    }
+}
+
+```
+![Pseudonumeros](https://raw.githubusercontent.com/andres726127/An-lisis-de-Algoritmos/refs/heads/main/carpeta_nueva/Pseudonumeros.png)
 
 ## 🔸 Tiempo de Ejecución
 
@@ -302,10 +582,5 @@ Los **números pseudoaleatorios** son generados por algoritmos (como el generado
 | Útil para problemas conocidos | Útil en situaciones inciertas   |
 
 ---
-
-## ✅ Conclusión
-
-Los algoritmos probabilísticos son útiles cuando no se puede conocer todo el contexto del problema. Permiten tomar decisiones rápidas con un buen margen de éxito. Son una alternativa válida y poderosa frente a los algoritmos deterministas, especialmente en contextos donde el riesgo o la incertidumbre están presentes.
-
 
 
